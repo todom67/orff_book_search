@@ -1,0 +1,5 @@
+{% for book in object_list %}
+  <h4>"{{ book.title | safe }}"  by: {{ book.author | safe }}
+    <a style="float: right;"  href="{{ url_for('books.detail', id=book.id) }}">Details</a>
+  </h4>
+{% endfor %}

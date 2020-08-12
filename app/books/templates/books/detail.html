@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content_title %}{{ book.title }}{% endblock %}
+
+{% block sidebar %}
+  <ul class="well nav nav-list">
+    <li><h4>Learning Plan Elements</h4></li>
+     
+    {% for lpe in lpes %}
+      {% if lpe.value in book.lpelements %}
+        <li>{{ lpe.description }}</li>
+      {% endif %}
+    {% endfor %}
+    {% if g.user.is_authenticated  %}
+      <li><h4>Actions</h4></li>
+      <a  href="{{ url_for('books.edit', id=book.id) }}">Edit</a>&nbsp;&nbsp;&nbsp;
+      <a  href="{{ url_for('books.delete', id=book.id) }}">Delete</a>
+    {% endif %}
+  </ul>
+{% endblock %}
+
+{% block content %}
+  <h3>Author: {{ book.author }}</h3>
+  <h3>{{ book.ISBN }}</h3>
+  {% if book.storelink %}
+    <h3>TPT:  {{ book.storelink }} </h3>
+  {% endif %}
+{% endblock %}

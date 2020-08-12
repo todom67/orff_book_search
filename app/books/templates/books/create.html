@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% from "macros/form_field.html" import form_field %}
+
+{% block title %}Create new book{% endblock %}
+
+{% block content_title %}Create new book{% endblock %}
+
+{% block content %}
+  <form action="{{ url_for('books.create') }}" class="form form-horizontal" method="post">
+    {% for field in form %}
+      {% if field.name != 'lpe_boxes' %}
+        {{ form_field(field) }}
+      {% endif %}
+    {% endfor %}
+    <ul style="list-style-type: none; -webkit-column-count: 3; -moz-column-count: 3; column-count: 3;">
+    {% for lpe in lpes %}
+      <li>
+        <input type="checkbox" id="{{ lpe.description }}" name="lp_checkbox" value="{{ lpe.value }}">
+        <label for="{{lpe.description}}">{{lpe.description}}</label>
+      </li>
+    {% endfor %}
+    </ul>
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-9">
+        <button type="submit" class="btn btn-default">Create</button>
+        <a class="btn" href="{{ url_for('books.index') }}">Cancel</a>
+      </div>
+    </div>
+  </form>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% from "macros/form_field.html" import form_field %}
+
+{% block title %}Books by Learning Plan Element{% endblock %}
+
+{% block content_title %}Books by Learning Plan Element{% endblock %}
+
+{% block sidebar %}
+<form method="POST">
+  <ul class="well nav nav-list">
+    <li><h4>Search by:</h4></li>
+      <input type="submit" class="btn btn-default" name="LPElementSearchAll" value="ALL Selected LPE's" form="lpe_boxes">
+      <input type="submit" class="btn btn-default" name="LPElementSearchAny" value="ANY Selected LPE's" form="lpe_boxes">
+      <a class="btn" href="{{ url_for('books.index' )}}">Cancel</a>
+  </ul>
+</form>
+{% endblock %}
+
+{% block content %}
+<form id="lpe_boxes"  action="{{ url_for('books.lpresults') }}" class="form form-horizontal" method="post">
+  <div style="text-align: center;">
+    <h4>Learning Plan Elements</h4>
+  </div>
+  <ul style="list-style-type: none; -webkit-column-count: 3; -moz-column-count: 3; column-count: 3;">
+  {% for lpe in lpes %}
+    <li>
+      <input type="checkbox" id="{{ lpe.description }}" name="lp_checkbox" value="{{ lpe.value }}">
+      <label for="{{lpe.description}}">{{lpe.description}}</label>
+    </li>
+  {% endfor %}
+  </ul>
+</form>
+{% endblock %}
