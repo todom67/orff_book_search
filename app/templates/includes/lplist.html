@@ -1,0 +1,15 @@
+{% for book in object_list %}
+  <h4>"{{ book.title }}"  by: {{ book.author }}</h4>
+  <h5>{{ book.ISBN }}</h5>
+  <ul style="list-style-type: none; -webkit-column-count: 3; -moz-column-count: 3; column-count: 3;">
+    {% for lpe in lpes %}
+        {% if lpe.value in book.lpelements %}
+          {% if  lpe.value in search_terms %}
+            <li style="background-color: tomato;"><strong>{{ lpe.description}} </strong></li>
+          {% else %}
+            <li>{{ lpe.description }}</li>
+          {% endif %}
+        {% endif %}
+    {% endfor %}
+    </ul>
+{% endfor %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content_title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+  <form action="{{ url_for('books.delete', id=book.id) }}" method="post">
+    <fieldset>
+      <legend>Delete this book?</legend>
+      <button class="btn btn-danger" type="submit">Delete</button>
+      <a class="btn" href="{{ url_for('books.detail', id=book.id) }}">Cancel</a>
+    </fieldset>
+  </form>
+{% endblock %}

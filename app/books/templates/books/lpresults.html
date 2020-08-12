@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+  <form class="form-inline well" method="get" role="form" action="{{ url_for('books.index') }}" >
+    <div class="input-group">
+      <input class="form-control input-xs" name="q" placeholder="Search..." value="{{ request.args.get('q', '') }}" />
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">Go</button>
+      </span>
+    </div>
+  </form>
+  <a href="{{ url_for('books.lpsearch') }}">New LP Element Search</a>
+{% endblock %}
+
+{% block content %}
+  {% include "includes/lplist.html" %}
+{% endblock %}
+
