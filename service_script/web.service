@@ -1,0 +1,27 @@
+[Unit]
+Description=This is web daemon
+PartOf=eb-app.target
+
+
+
+[Service]
+User=webapp
+Type=simple
+ExecStartPre=source /var/app/venv/staging-LQM1lest/bin/activate
+ExecStart=/bin/sh -c "gunicorn --bind 0.0.0.0:8000 application:app --workers=1 --thre
+ads=15"
+
+ExecStartPost=/bin/sh -c "systemctl show -p MainPID web.service | cut -d= -f2 > /var/
+pids/web.pid"
+ExecStopPost=/bin/sh -c "rm -f /var/pids/web.pid"
+Restart=always
+EnvironmentFile=/opt/elasticbeanstalk/deployment/env
+
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=web
+WorkingDirectory=/var/app/current/
+
+
+[Install]
+WantedBy=multi-user.target
